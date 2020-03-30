@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\NarudzbaResource;
-use App\Narudzba;
+use App\Models\Narudzba;
 
 class NarudzbaController extends Controller
 {

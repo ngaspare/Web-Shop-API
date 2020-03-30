@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Proizvod;
-use App\Kategorija;
+use App\Models\Proizvod;
+use App\Models\Kategorija;
 
 class KategorijaController extends Controller
 {
     public function show($id)
     {
 
-            return Proizvod::whereHas('kategorije', function ($query) use ($id) {
+            return Proizvod::whereHas('kategorijas', function ($query) use ($id) {
                 $query->where('kategorija_id', '=', $id);
             })->paginate();
     }
