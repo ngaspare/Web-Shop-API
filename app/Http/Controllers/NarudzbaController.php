@@ -2,26 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\DodavanjeNarudzbeRequest;
 use App\Http\Resources\NarudzbaResource;
-use App\Models\Narudzba;
+use App\Repositories\NarudzbaRepositoryInterface;
 
 class NarudzbaController extends Controller
 {
-    public function store(Request $request)
-    {
-        $request->validate([
-            'ukupna_cijena' => 'required',
-            'ime'           => 'required',
-            'prezime'       => 'required',
-            'email'         => 'required',
-            'broj_telefona' => 'required',
-            'adresa'        => 'required',
-            'grad'          => 'required',
-            'drzava'        => 'required'
-        ]);
 
-        $narudzba = Narudzba::create($request->all());
-        return new NarudzbaResource($narudzba);
+    private $narudzbaRepo;
+
+    public function __construct(NarudzbaRepositoryInterface $narudzbaRepo)
+    {
+        $this->narudzbaRepo = $narudzbaRepo;
+    }
+
+    public function store(DodavanjeNarudzbeRequest $request)
+    {
+        return $this->narudzbaRepo->store($request->all());
     }
 }
