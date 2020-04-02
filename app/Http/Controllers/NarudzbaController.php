@@ -10,6 +10,7 @@ class NarudzbaController extends Controller
 {
 
     private $narudzbaRepo;
+    private $narudzba;
 
     public function __construct(NarudzbaRepositoryInterface $narudzbaRepo)
     {
@@ -18,6 +19,10 @@ class NarudzbaController extends Controller
 
     public function store(DodavanjeNarudzbeRequest $request)
     {
-        return $this->narudzbaRepo->store($request->all());
+        $narudzba = $this->narudzbaRepo->store($request->all());
+
+        return $narudzba->with('proizvods')->whereHas('proizvods', function ($query) use($narudzba){
+            $query->where('narudzba_id', '=', $narudzba->id);
+        })->firstOrFail();
     }
 }

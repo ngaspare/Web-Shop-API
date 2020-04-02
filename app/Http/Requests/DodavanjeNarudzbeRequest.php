@@ -24,7 +24,7 @@ class DodavanjeNarudzbeRequest extends FormRequest
     public function rules()
     {
         return [
-            'ukupna_cijena' => 'required',
+            'proizvodi'     => 'required',
             'ime'           => 'required',
             'prezime'       => 'required',
             'email'         => 'required',
